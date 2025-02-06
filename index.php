@@ -1,8 +1,8 @@
 <?php
-$armes = [
-    ['name' => 'épée', 'description' => 'Lame légendaire', 'maxLevel' => 150, 'images' => 'epee/epee1.png'],
-    ['name' => 'Couteau', 'description' => 'Lame nul', 'maxLevel' => 9,  'images' => 'fleau/fleau1.png']
-];
+require_once './controller/WeaponController.php';
+
+$controller = new WeaponController();
+$armes = $controller->getWeapons();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,15 +12,37 @@ $armes = [
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+    <h1>Liste des armes</h1>
     <div class="container">
-        <?php foreach($armes as $arme): ?>
+        <?php foreach($armes as $arme): 
+                $maxLevel = ($arme->getMaxLevel() > 4) ? 4 : $arme->getMaxLevel();
+                $weaponFolder = strtolower($arme->getName());
+        ?>
             <div class="card">
-                <h2><?php echo htmlspecialchars($arme['name']); ?></h2>
-                <p><?php echo htmlspecialchars($arme['description']); ?></p>
-                <p>Niveau max : <?php echo htmlspecialchars($arme['maxLevel']); ?></p>
-                <img src="images/<?php echo htmlspecialchars($arme['images']); ?>" alt="<?php echo htmlspecialchars($arme['name']); ?>">
+                <h2><?php echo htmlspecialchars($arme->getName()); ?></h2>
+                <p><?php echo htmlspecialchars($arme->getDescription()); ?></p>
+                <p>Niveau max : <?php echo $maxLevel; ?></p>
+                <select onchange="updateImage(this, '<?php echo htmlspecialchars($arme->getName()); ?>', '<?php echo $arme->getId(); ?>')">
+                    <?php for($i = 1; $i <= $maxLevel; $i++): ?>
+                        <option value="<?php echo $i; ?>" <?php if($i == $maxLevel) echo 'selected'; ?>>
+                            Niveau <?php echo $i; ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+                <img id="img-<?php echo $arme->getId(); ?>" src="images/<?php echo $weaponFolder; ?>/<?php echo $weaponFolder; ?>1.png" 
+                     alt="<?php echo htmlspecialchars($arme->getName()); ?>">
             </div>
         <?php endforeach; ?>
     </div>
+    <script src="style/script.js"></script>
+    <script>
+    // Fonction qui met à jour l'image en fonction du niveau sélectionné
+    function updateImage(select, weaponName, weaponId) {
+        const level = select.value;
+        const img = document.getElementById('img-' + weaponId);
+        const lowerName = weaponName.toLowerCase();
+        img.src = 'images/' + lowerName + '/' + lowerName + level + '.png';
+    }
+    </script>
 </body>
 </html>

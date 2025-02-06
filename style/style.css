@@ -1,15 +1,17 @@
 :root {
-    --primary-color: #eaba1f;
+    --primary-color: #1f77ea;
     --secondary-color: #ffffff;
-    --bg-color: #f4f7f6;
-    --shadow-color: rgba(226, 218, 74, 0.3);
+    --bg-gradient-start: #e0eafc;
+    --bg-gradient-end: #cfdef3;
+    --border-color: #f7f9fb;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --transition-duration: 0.4s;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background: var(--bg-color);
 }
 
 .container {
@@ -22,29 +24,78 @@ body {
 
 .card {
     background: var(--secondary-color);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 1.5rem;
-    width: 220px;
-    box-shadow: 0 4px 8px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 250px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 12px var(--shadow-color);
+    transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px var(--shadow-color);
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .card h2 {
     color: var(--primary-color);
     margin-top: 0;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+.card p {
+    color: #555;
+    line-height: 1.4;
+    margin: 0.5rem 0;
 }
 
 .card img {
-    max-width: 100%;
-    border-radius: 5px;
-    transition: opacity 0.3s ease;
+    width: 80%;
+    border-radius: 8px;
+    transition: opacity var(--transition-duration) ease;
+    margin-top: 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card img:hover {
-    opacity: 0.8;
+    opacity: 0.85;
+}
+
+select {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fdfdfd;
+    margin-top: 0.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg fill='%231f77ea' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 20,0 10,10'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 0.8rem auto;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(31, 119, 234, 0.5);
+}
+
+select:hover {
+    border-color: var(--primary-color);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin: 1rem 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
