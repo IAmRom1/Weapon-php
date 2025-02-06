@@ -1,16 +1,18 @@
 <?php
 
 require_once './classes/Weapon.php';
+require_once './DAO/WeaponDAO.php';
 
 class WeaponController {
     public function getWeapons() {
-        new Weapon(1, "Epee", "Lame légendaire", 4, ["epee/epee1.png"]);
-        new Weapon(2, "Arc", "Arc nul", 2, ["fleau/fleau1.png"]);
-        new Weapon(3, "Fleau", "Fleau de guerre", 3, ["fleau/fleau1.png"]);
-        new Weapon(4, "Hache", "Hache de guerre", 3, ["hache/hache1.png"]);
-        new Weapon(5, "Epee", "Lame légendaire", 4, ["epee/epee1.png"]);
-        new Weapon(6, "Arc", "Arc nul", 2, ["fleau/fleau1.png"]);
-        
+        $weaponsData = WeaponDAO::getWeapons();
+        foreach($weaponsData as $data) {
+            $imagesData = WeaponDAO::getImages($data['id']);
+            $imgUrls = array_map(function($img) {
+                return $img['url'];
+            }, $imagesData);
+            new Weapon($data['id'], $data['name'], $data['description'], $data['max_level'], $imgUrls);
+        }
         return Weapon::$weapons;
     }
 }
