@@ -1,18 +1,12 @@
 <?php
 
-class WeaponController{
-    private $weapon = [];
+require_once './classes/Weapon.php';
 
-    public function addWeapon($name, $description, $maxLevel, $imagesPath){
-        $weapon = [
-            'name' => $name,
-            'description' => $description,
-            'maxLevel' => $maxLevel,
-            'image' => $imagePath
-        ];
-        $this->weapon[] = $weapon;
-    }
-    public function getWeapon(){
-        return $this->weapon;
+class WeaponController {
+    public function getWeapons() {
+        new Weapon(1, "Epee", "Lame légendaire", 4, ["epee/epee1.png"]);
+        new Weapon(2, "Arc", "Arc nul", 2, ["fleau/fleau1.png"]);
+        
+        return Weapon::$weapons;
     }
 }
