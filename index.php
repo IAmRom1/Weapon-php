@@ -15,7 +15,7 @@ $armes = $controller->getWeapons();
     <h1>Liste des armes</h1>
     <div class="container">
         <?php foreach($armes as $arme): 
-                $maxLevel = ($arme->getMaxLevel() > 4) ? 4 : $arme->getMaxLevel();
+                $maxLevel = $arme->getMaxLevel(); 
                 $imagesJson = htmlspecialchars(json_encode($arme->getImages()), ENT_QUOTES, 'UTF-8');
         ?>
             <div class="card" data-images='<?php echo $imagesJson; ?>'>
